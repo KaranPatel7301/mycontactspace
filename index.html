@@ -24,14 +24,15 @@
         <div class="modal-body p-5 pt-0">
           <form class="">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email address</label>
+              <input type="email" class="form-control rounded-4" id="loginEmail" placeholder="name@example.com">
+              <label for="loginEmail">Email address</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
+              <input type="password" class="form-control rounded-4" id="loginPassword" placeholder="Password">
+              <label for="loginPassword">Password</label>
             </div>
             <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" id="loginButton" type="submit" onclick="doLogin();">Sign in</button>
+            <span id="loginResult"></span>
           </form>
           <hr class="my-4">
           <small>New to MyContactSpace? <a href="#bannerformmodal" data-bs-target="#modalSignup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign up now</a></small>
@@ -50,12 +51,20 @@
         <div class="modal-body p-5 pt-0">
           <form class="">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email address</label>
+              <input type="text" class="form-control rounded-4" id="firstName" placeholder="First name">
+              <label for="firstName">First name</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
+              <input type="text" class="form-control rounded-4" id="lastName" placeholder="Last Name">
+              <label for="lastName">Last Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control rounded-4" id="signupEmail" placeholder="name@example.com">
+              <label for="signupEmail">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control rounded-4" id="signupPassword" placeholder="Password">
+              <label for="signupPassword">Password</label>
             </div>
             <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Join</button>
           </form>

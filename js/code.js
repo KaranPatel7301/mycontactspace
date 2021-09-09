@@ -11,7 +11,7 @@ function doLogin()
 	firstName = "";
 	lastName = "";
 	
-	var login = document.getElementById("loginName").value;
+	var login = document.getElementById("loginEmail").value;
 	var password = document.getElementById("loginPassword").value;
 	//	var hash = md5( password );
 
@@ -99,6 +99,7 @@ function readCookie()
 	}
 }
 
+/*  COMMENT OUT ALL CODE THAT IS CURRENTLY NOT BEING USED TO AVOID WEBPAGE NOT WORKING
 function doLogout()
 {
 	userId = 0;
@@ -183,3 +184,4 @@ function searchColor()
 	}
 	
 }
+*/
