@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-100">
   <head>
     <meta charset="utf-8">
@@ -9,7 +9,8 @@
     <title>MyContactSpace</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="styles.css" rel="stylesheet">
+     <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
   </head>
 <body class="d-flex h-100 text-center text-white">
   <div class="modal fade" tabindex="-1" role="dialog" id="modalSignin">
@@ -30,7 +31,7 @@
               <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
               <label for="floatingPassword">Password</label>
             </div>
-            <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign in</button>
+            <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" id="loginButton" type="submit" onclick="doLogin();">Sign in</button>
           </form>
           <hr class="my-4">
           <small>New to MyContactSpace? <a href="#bannerformmodal" data-bs-target="#modalSignup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign up now</a></small>

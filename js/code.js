@@ -11,9 +11,10 @@ function doLogin()
 	firstName = "";
 	lastName = "";
 	
-	var login = document.getElementById("floatingInput").value;
-	var password = document.getElementById("floatingPassword").value;
-	
+	var login = document.getElementById("loginName").value;
+	var password = document.getElementById("loginPassword").value;
+	//	var hash = md5( password );
+
 	document.getElementById("loginResult").innerHTML = "";
 
 	var tmp = {login:login,password:password};
@@ -45,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "index.html";
+				window.location.href = "contacts.html";
 			}
 		};
 		xhr.send(jsonPayload);
