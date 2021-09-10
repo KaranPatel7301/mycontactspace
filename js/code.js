@@ -1,4 +1,4 @@
-var urlBase = 'http://mycontactspace.com/LAMPAPI/';
+var urlBase = 'http://mycontactspace.com/LAMPAPI';
 var extension = 'php';
 
 var userId = 0;
@@ -17,7 +17,11 @@ function doLogin()
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var tmp = {login:login,password:password};
+	var tmp = {
+		Login: login,
+		Password: password
+	};
+
 //	var tmp = {login:login,password:hash};
 	var jsonPayload = JSON.stringify( tmp );
 	
@@ -55,6 +59,67 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
+
+}
+
+function doRegister()
+{
+        userId = 0;
+        firstName = "";
+        lastName = "";
+		
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var login = document.getElementById("signupEmail").value;
+        var password = document.getElementById("signupPassword").value;
+        // var hash = md5( password );
+
+        //document.getElementById("loginResult").innerHTML = "";
+
+        var tmp = {
+                FirstName: firstName,
+                LastName: lastName,
+                Login: login,
+                Password: password
+        };
+
+//      var tmp = {login:login,password:hash};
+        var jsonPayload = JSON.stringify( tmp );
+
+        var url = urlBase + '/AddUser.' + extension;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        try
+        {
+                xhr.onreadystatechange = function()
+                {
+                        if (this.readyState == 4 && this.status == 200)
+                        {
+                                var jsonObject = JSON.parse( xhr.responseText );
+                                userId = jsonObject.id;
+
+                                if( userId < 1 )
+                                {
+                                        document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+                                        return;
+                                }
+
+                                firstName = jsonObject.firstName;
+                                lastName = jsonObject.lastName;
+
+                                saveCookie();
+
+                                window.location.href = "contacts.html";
+                        }
+                };
+                xhr.send(jsonPayload);
+        }
+        catch(err)
+        {
+                document.getElementById("loginResult").innerHTML = err.message;
+        }
 
 }
 
@@ -99,7 +164,6 @@ function readCookie()
 	}
 }
 
-/*  COMMENT OUT ALL CODE THAT IS CURRENTLY NOT BEING USED TO AVOID WEBPAGE NOT WORKING
 function doLogout()
 {
 	userId = 0;
@@ -108,7 +172,7 @@ function doLogout()
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
-
+/*  COMMENT OUT ALL CODE THAT IS CURRENTLY NOT BEING USED TO AVOID WEBPAGE NOT WORKING
 function addColor()
 {
 	var newColor = document.getElementById("colorText").value;
