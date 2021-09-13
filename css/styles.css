@@ -39,6 +39,7 @@ table
 {
   text-shadow: none;
 }
+
 /*
  * Header
  */
@@ -70,13 +71,32 @@ table
 }
 
 /*
- * Modal
+ * Modals
  */
 
-#modalSignin, #modalSignup
+#modalSignin, #modalSignup, #features
 {
   color: black;
   text-shadow: none;
+}
+
+#features-wrapper
+{
+  align-items: center;
+  justify-content: center;
+}
+
+.row 
+{
+  flex-wrap: nowrap;
+}
+.col
+{
+}
+
+.card
+{
+  width: 300px;
 }
 
 a:link { text-decoration: none; }
@@ -123,6 +143,39 @@ a:active { text-decoration: none; }
   width: 380px;
 }
 
+
+
+/* Gets rid of margins and max-width for features modal */
+@media (min-width: 576px)
+{
+  #features-modal
+  {
+    max-width: 0px; 
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 1px) and (max-width: 694px)
+{
+
+ 
+  
+  #card-wrapper
+  {
+    display: flex;
+    flex-direction: column;
+    --bs-gutter-y: 2rem;
+  }
+
+  .card
+  {
+    margin-left: 59px;
+    margin-right: 59px;
+    width: 70vw;
+  }
+}
+
 @media only screen and (max-width: 767.5px)
 {
   #background-top 
@@ -133,5 +186,29 @@ a:active { text-decoration: none; }
   #title
   {
     padding-bottom: 5px;
+  }  
+}
+
+@media only screen and (min-width: 695px) and (max-width: 970px)
+{
+  #card-wrapper
+  {
+    display: flex;
+    flex-direction: column;
+    --bs-gutter-y: 2rem;
   }
+
+  .card
+  {
+    width: 80vw;
+  }
+}
+
+@media only screen and (max-width: 1078px)
+{
+  #card-wrapper
+  {
+    --bs-gutter-x: 1rem;
+  }
+
 }

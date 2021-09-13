@@ -12,6 +12,42 @@
     <link href="css/styles.css" rel="stylesheet">
   </head>
 <body class="d-flex h-100 text-center text-white">
+  <div class="modal fade" tabindex="-1" role="dialog" id="features">
+    <div id="features-modal" class="modal-dialog modal-dialog-centered" role="document">
+      <div id="features-wrapper">
+        <div id="card-wrapper" class="row row-cols-1 row-cols-md-3 gx-5">
+          <div class="col">
+            <div class="card h-100">
+              <img src="D:\School_Work\Fall_2021\POOP\Projects\mycontactspace\images\face.png" class="card-img-top" alt="Add contacts image">
+              <div class="card-body">
+                <h5 class="card-title">Add Contacts</h5>
+                <p class="card-text">Grow your contacts list with the add button.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img src="D:\School_Work\Fall_2021\POOP\Projects\mycontactspace\images\search.png" class="card-img-top" alt="Search contacts image">
+              <div class="card-body">
+                <h5 class="card-title">Search Contacts</h5>
+                <p class="card-text">Browse through your contacts list using the contacts search bar.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img src="..." class="card-img-top" alt="Delete contacts image">
+              <div class="card-body">
+                <h5 class="card-title">Delete Contacts</h5>
+                <p class="card-text">Hover over a contact and click the red button to delete the contact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" tabindex="-1" role="dialog" id="modalSignin">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content rounded-5 shadow">
@@ -82,7 +118,7 @@
         <h3 id="title" class="float-md-start mb-0">MyContactSpace</h3>
         <nav class="nav nav-masthead justify-content-center float-md-end">
           <!--<a class="nav-link active" aria-current="page" href="#">Home</a>-->
-          <button type="button" class="btn btn-outline-secondary">Features</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#features">Features</button>
           <!--<a class="nav-link" href="#">Contact</a>-->
         </nav>
       </div>
