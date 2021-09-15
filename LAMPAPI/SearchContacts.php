@@ -12,9 +12,9 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select Name from Users where Name like ? and UserID=?");
-		$FirstName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $FirstName, $inData["userId"]);
+		$stmt = $conn->prepare("select FirstName, LastName, PhoneNumber, EmailAddress from Contacts where FirstName like ?");
+		$FirstName = "%" . $inData["FirstName"] . "%";
+		$stmt->bind_param("s", $FirstName);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
@@ -27,6 +27,9 @@
 			}
 			$searchCount++;
 			$searchResults .= '"' . $row["FirstName"] . '"';
+            $searchResults .= '"' . $row["LastName"] . '"';
+            $searchResults .= '"' . $row["PhoneNumber"] . '"';
+            $searchResults .= '"' . $row["EmailAddress"] . '"';
 		}
 		
 		if( $searchCount == 0 )
@@ -55,7 +58,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"FirstName":"","LastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
