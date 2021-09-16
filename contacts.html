@@ -9,7 +9,6 @@
         <title>MyContactSpace</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-         <script type="text/javascript" src="js/code.js"></script>
         <link href="css/styles.css" rel="stylesheet">
     </head>
     <body class="d-flex h-100 text-center text-white">
@@ -32,14 +31,18 @@
                   <label for="lastName">Last Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control rounded-4" id="signupEmail" placeholder="name@example.com">
-                  <label for="signupEmail">Phone Number</label>
+                  <input type="text" class="form-control rounded-4" id="contactsPhoneNumber" placeholder="648-929-4029">
+                  <label for="contactsPhoneNumber">Phone Number</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="password" class="form-control rounded-4" id="signupPassword" placeholder="Password">
-                  <label for="signupPassword">Email address</label>
+                  <input type="email" class="form-control rounded-4" id="contactsEmail" placeholder="name@example.com">
+                  <label for="contactsEmail">Email address</label>
                 </div>
-                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button">Add</button>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control rounded-4" id="contactsNotes" placeholder="Notes">
+                  <label for="contactsNotes">Notes</label>
+                </div>
+                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" id="addButton" type="button" data-bs-dismiss="modal">Add</button>
               </form>
             </div>
           </div>
@@ -47,7 +50,7 @@
       </div>
 
       <div id="background-top" class="p-3 mb-2 bg-dark bg-gradient text-white"></div>
-      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <div class="cover-container-contacts d-flex w-100 h-100 p-3 mx-auto flex-column">
           <header class="mb-auto">
             <div>
               <h3 id="title" class="float-md-start mb-0">MyContactSpace</h3>
@@ -63,42 +66,46 @@
           </header>
 
           <main class="px-3">
-            <table class="table table-hover table-bordered bg-light">
+            <table id="contactsTable" class="table table-hover table-bordered bg-light">
               <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
                   <th scope="col">Phone Number</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Notes</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tableBody">
                 <tr>
                   <th scope="row">1</th>
                   <td>Mark Otto</td>
                   <td>954-102-2039</td>
                   <td>ottomark@mdo.com</td>
+                  <td>Brother's friend that is very helpful with all things Apple</td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
                   <td>Jacob Thornton</td>
                   <td>653-204-5829</td>
                   <td>thornfart@fat.com</td>
+                  <td>Cousin</td>
                 </tr>
                 <tr>
                   <th scope="row">3</th>
                   <td>Henry Frank</td>
                   <td>209-694-6843</td>
                   <td>hfrank@yahoo.com</td>
+                  <td>Uncle</td>
                 </tr>
               </tbody>
             </table>
             <button type="button" class="btn btn-light float-start launch-modal" data-bs-toggle="modal" data-bs-target="#addContact">Add contact</button>
-
           </main>
           <footer class="mt-auto text-white-50"></footer>
-        </div>
+      </div>
 
+      <script type="text/javascript" src="js/code.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body> 

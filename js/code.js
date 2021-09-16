@@ -252,3 +252,47 @@ function searchColor()
 	
 }
 */
+
+/* Add contacts functionality */
+
+let btnAdd = document.getElementById("addButton");
+let table = document.getElementById("tableBody");
+
+let firstNameInput = document.getElementById("firstName");
+let lastNameInput = document.getElementById("lastName");
+let phoneNumberInput = document.getElementById("contactsPhoneNumber");
+let emailInput = document.getElementById("contactsEmail");
+let notesInput = document.getElementById("contactsNotes");
+
+btnAdd.addEventListener('click', () => {
+	// Increment ID values
+	let countID = document.querySelector('table :last-child > :last-child > th');
+	let numberID = parseInt(countID.innerHTML) + 1;
+	
+    let firstName = firstNameInput.value;
+    let lastName = lastNameInput.value;
+    let phoneNumber = phoneNumberInput.value;
+    let email = emailInput.value;
+    let notes = notesInput.value;
+
+    let template = `
+				<tr>
+					<th scope="row">${numberID}</th>
+					<td>${firstName} ${lastName}</td>
+					<td>${phoneNumber}</td>
+					<td>${email}</td>
+					<td>${notes}</td>
+  				</tr>`;
+
+    table.innerHTML += template;
+	clearInput();
+});
+
+function clearInput()
+{
+	document.getElementById("firstName").value = '';
+	document.getElementById("lastName").value = '';
+	document.getElementById("contactsPhoneNumber").value = '';
+	document.getElementById("contactsEmail").value = '';
+	document.getElementById("contactsNotes").value = '';
+}

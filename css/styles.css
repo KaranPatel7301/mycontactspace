@@ -22,9 +22,14 @@ body
   background-color: rgb(65, 179, 255);
 }
 
-.cover-container 
+.cover-container-index 
 {
   max-width: 42em;
+}
+
+.cover-container-contacts 
+{
+  max-width: 52em;
 }
 
 #background-top 
@@ -38,6 +43,30 @@ body
 table 
 {
   text-shadow: none;
+}
+
+th
+{
+  vertical-align: middle;
+}
+
+td
+{
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Select the fourth element in a table row */
+td:nth-of-type(4)
+{
+  text-align: left;
+}
+
+/* Select the last ID number */
+table :last-child > :last-child > th
+{
+  color:red;
 }
 
 /*
