@@ -172,13 +172,15 @@ function doLogout()
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
-/*  COMMENT OUT ALL CODE THAT IS CURRENTLY NOT BEING USED TO AVOID WEBPAGE NOT WORKING
-function addColor()
+
+function addContact()
 {
 	var newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
 
-	var tmp = {color:newColor,userId,userId};
+	var tmp = { 
+		color: newColor, userId, userId
+	};
 	var jsonPayload = JSON.stringify( tmp );
 
 	var url = urlBase + '/AddColor.' + extension;
@@ -204,6 +206,7 @@ function addColor()
 	
 }
 
+/*  COMMENT OUT ALL CODE THAT IS CURRENTLY NOT BEING USED TO AVOID WEBPAGE NOT WORKING
 function searchColor()
 {
 	var srch = document.getElementById("searchText").value;

@@ -74,7 +74,7 @@ table
  * Modals
  */
 
-#modalSignin, #modalSignup, #features
+#modalSignin, #modalSignup, #features, #addContact
 {
   color: black;
   text-shadow: none;
@@ -89,9 +89,6 @@ table
 .row 
 {
   flex-wrap: nowrap;
-}
-.col
-{
 }
 
 .card

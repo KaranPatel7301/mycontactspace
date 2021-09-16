@@ -13,8 +13,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare(" DELETE FROM Contacts WHERE EmailAddress) VALUES(?)");
-		$stmt->bind_param("s", $inData["EmailAddress"]);
+		$stmt = $conn->prepare("DELETE FROM Contacts WHERE EmailAddress=?");
+		$stmt->bind_param("s",$inData["EmailAddress"]);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
@@ -38,3 +38,4 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
+?>
