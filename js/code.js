@@ -266,23 +266,32 @@ let notesInput = document.getElementById("contactsNotes");
 
 btnAdd.addEventListener('click', () => {
 	// Increment ID values
-	let countID = document.querySelector('table :last-child > :last-child > th');
-	let numberID = parseInt(countID.innerHTML) + 1;
-	
+	//let countID = document.querySelector('table :last-child > :last-child > th');
+	//let numberID = parseInt(countID.innerHTML) + 1;
+
     let firstName = firstNameInput.value;
     let lastName = lastNameInput.value;
     let phoneNumber = phoneNumberInput.value;
     let email = emailInput.value;
     let notes = notesInput.value;
 
+	var table = document.getElementById("contactsTable");
+	var tableLength = (table.rows.length) - 1;
+	
+	// Make a new row in the table
     let template = `
-				<tr>
-					<th scope="row">${numberID}</th>
-					<td>${firstName} ${lastName}</td>
-					<td>${phoneNumber}</td>
-					<td>${email}</td>
-					<td>${notes}</td>
-  				</tr>`;
+				<tr id="row${tableLength}">
+                    <th scope="row">${tableLength}</th>
+                    <td id="name-row${tableLength}">${firstName} ${lastName}</td>
+                    <td id="phoneNumber-row${tableLength}">${phoneNumber}</td>
+                    <td id="email-row${tableLength}">${email}</td>
+                    <td id="notes-row${tableLength}">${notes}</td>
+                    <td id="button-cell">
+                      <button type="button" id="edit-button${tableLength}" value="Edit" class="btn btn-light edit" onclick="edit_row('${tableLength}')">Edit</button>
+                      <button type="button" id="save-button${tableLength}" value="Save" class="btn btn-light save" onclick="save_row('${tableLength}')" style="display:none;">Save</button>
+                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('${tableLength}')">Delete</button>
+                    </td>
+                </tr>`;
 
     table.innerHTML += template;
 	clearInput();
@@ -295,4 +304,49 @@ function clearInput()
 	document.getElementById("contactsPhoneNumber").value = '';
 	document.getElementById("contactsEmail").value = '';
 	document.getElementById("contactsNotes").value = '';
+}
+
+/* Edit, save, and delete contacts */
+
+function edit_row(no)
+{
+ document.getElementById("edit-button"+no).style.display="none";
+ document.getElementById("save-button"+no).style.display="inline-flex";
+	
+ var name = document.getElementById("name-row"+no);
+ var phoneNumber = document.getElementById("phoneNumber-row"+no);
+ var email = document.getElementById("email-row"+no);
+ var notes = document.getElementById("notes-row"+no);
+
+ var name_data = name.innerHTML;
+ var phoneNumber_data = phoneNumber.innerHTML;
+ var email_data = email.innerHTML;
+ var notes_data = notes.innerHTML;
+	
+ name.innerHTML="<input type='text' id='name-text"+no+"' value='"+name_data+"'>";
+ phoneNumber.innerHTML="<input type='text' id='phoneNumber-text"+no+"' value='"+phoneNumber_data+"'>";
+ email.innerHTML="<input type='text' id='email-text"+no+"' value='"+email_data+"'>";
+ notes.innerHTML="<input type='text' id='notes-text"+no+"' value='"+notes_data+"' maxlength = '100'>";
+}
+
+function save_row(no)
+{
+ var name_val=document.getElementById("name-text"+no).value;
+ var phoneNumber_val=document.getElementById("phoneNumber-text"+no).value;
+ var email_val=document.getElementById("email-text"+no).value;
+ var notes_val=document.getElementById("notes-text"+no).value;
+
+
+ document.getElementById("name-row"+no).innerHTML=name_val;
+ document.getElementById("phoneNumber-row"+no).innerHTML=phoneNumber_val;
+ document.getElementById("email-row"+no).innerHTML=email_val;
+ document.getElementById("notes-row"+no).innerHTML=notes_val;
+
+ document.getElementById("edit-button"+no).style.display="block";
+ document.getElementById("save-button"+no).style.display="none";
+}
+
+function delete_row(no)
+{
+ document.getElementById("row"+no+"").outerHTML="";
 }
