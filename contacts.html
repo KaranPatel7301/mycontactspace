@@ -4,7 +4,6 @@ $conn = new mysqli("localhost", "Admin", "Administrator", "project");
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en" class="h-100">
     <head>
@@ -73,8 +72,16 @@ $conn = new mysqli("localhost", "Admin", "Administrator", "project");
           </header>
 
           <main class="px-3">
+		  
+		    <div class="search-bar-container float-end">
+			  <form action="/LAMPAPI/SearchContacts.php" class="search-box">
+                <input type="text" placeholder="Search contacts...">
+				<button type="search-button" id="search-button" value="search" class="btn btn-light search" onclick="Search">Submit</button>
+			  </form>
+            </div>
+		  
             <div id="table-wrapper">
-              <table id="contactsTable" class="table table-hover table-bordered bg-light">
+              <table id="contactsTable" class="table table-hover table-bordered table-striped">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -85,20 +92,8 @@ $conn = new mysqli("localhost", "Admin", "Administrator", "project");
                   </tr>
                 </thead>
                 <tbody id="tableBody">
-                  <tr id="row1" style="display: none;">
-                    <th scope="row">1</th>
-                    <td id="name-row1"></td>
-                    <td id="phoneNumber-row1"></td>
-                    <td id="email-row1"></td>
-                    <td id="notes-row1"></td>
-                    <td id="button-cell">
-                      <button type="button" id="edit-button1" value="Edit" class="btn btn-light edit" onclick="edit_row('1')">Edit</button>
-                      <button type="button" id="save-button1" value="Save" class="btn btn-light save" onclick="save_row('1')" style="display:none;">Save</button>
-                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('1')">Delete</button>
-                    </td>
-                  </tr>
-                  <!--
-                  <tr id="row1">
+                
+                  <!-- <tr id="row1">
                     <th scope="row">1</th>
                     <td id="name-row1">Mark Otto</td>
                     <td id="phoneNumber-row1">954-102-2039</td>
@@ -133,8 +128,8 @@ $conn = new mysqli("localhost", "Admin", "Administrator", "project");
                       <button type="button" id="save-button3" value="Save" class="btn btn-light save" onclick="save_row('3')" style="display:none;">Save</button>
                       <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('3')">Delete</button>
                     </td>
-                  </tr>
-                  -->
+                  </tr> -->
+                  
                 </tbody>
               </table>
             </div>

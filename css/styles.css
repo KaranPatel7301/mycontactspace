@@ -45,22 +45,29 @@ body
   color: red;
 }
 
-table 
-{
-  text-shadow: none;
+table {
+    border-collapse:separate;
+	border-spacing:0rem;
+    text-shadow:none;
+    border-radius:0.5rem;
+    -moz-border-radius:0.5rem;
+	 border-left: none;
+	 background-color: #FFF;
 }
 
-th
-{
-  vertical-align: middle;
+td, th {
+
+	 border-left: none;
 }
 
-td
-{
-  align-items: center;
-  vertical-align: middle;
-  padding-left: 10px;
-  padding-right: 10px;
+th {
+    background-color: blue;
+    border-top: none;
+	 border-left: none;
+}
+
+td:last-child, th:first-child {
+     border-right: none;
 }
 
 #fullName
@@ -131,6 +138,21 @@ td:nth-of-type(4)
   align-items: center;
   justify-content: center;
 }
+
+.search-bar-container {
+  border-radius:0.25rem;
+  border: none;
+  height:auto;
+  margin-bottom:1rem;
+	vertical-align:top;
+}
+.search-box input[type=text] {    
+  border-radius:0.25rem;
+  border: none;
+  height:2.375rem;
+  vertical-align:top;
+}
+
 
 .row 
 {
