@@ -40,6 +40,11 @@ body
   width: 100%;
 }
 
+#loginResult
+{
+  color: red;
+}
+
 table 
 {
   text-shadow: none;
@@ -56,6 +61,17 @@ td
   vertical-align: middle;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+#fullName
+{
+  display: flex;
+  flex-direction: row;
+}
+
+#notes-row
+{
+  text-align: left;
 }
 
 #button-cell
