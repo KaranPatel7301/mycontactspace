@@ -1,4 +1,7 @@
 <?php
+
+list(,,$val) = explode(",",$_COOKIE['firstName']);
+$res = preg_replace("/[^0-9]/", "", $val);
 	$inData = getRequestInfo();
 	
 	$FirstName = $inData["FirstName"];
@@ -14,8 +17,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (FirstName,LastName,PhoneNumber,EmailAddress,Notes) VALUES(?,?,?,?,?)");
-		$stmt->bind_param("sssss", $inData["FirstName"], $inData["LastName"], $inData["PhoneNumber"], $inData["EmailAddress"], $inData["Notes"]);
+		$stmt = $conn->prepare("INSERT into Contacts (FirstName,LastName,PhoneNumber,EmailAddress,Notes,userId) VALUES(?,?,?,?,?,?)");
+		$stmt->bind_param("ssssss", $inData["FirstName"], $inData["LastName"], $inData["PhoneNumber"], $inData["EmailAddress"], $inData["Notes"], $res);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();

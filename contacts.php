@@ -1,5 +1,5 @@
 <?php
-
+  list(,,$val) = explode(",",$_COOKIE['firstName']);
     $mysqli = new mysqli("localhost", "Admin", "Administrator", "project");
 
     if ($mysqli->connect_error) 
@@ -8,7 +8,7 @@
 	} 
 	else
 	{
-		$sql = "SELECT * FROM Contacts";
+		$sql = "SELECT * FROM Contacts WHERE $val";
         $result = $mysqli->query($sql);
         $mysqli->close();
 	}
