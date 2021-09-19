@@ -29,7 +29,7 @@ body
 
 .cover-container-contacts 
 {
-  max-width: 52em;
+  max-width: 72em;
 }
 
 #background-top 
@@ -38,6 +38,11 @@ body
   z-index: -1;
   height: 68px;
   width: 100%;
+}
+
+#loginResult
+{
+  color: red;
 }
 
 table 
@@ -52,21 +57,33 @@ th
 
 td
 {
+  align-items: center;
   vertical-align: middle;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+#fullName
+{
+  display: flex;
+  flex-direction: row;
+}
+
+#notes-row
+{
+  text-align: left;
+}
+
+#button-cell
+{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 /* Select the fourth element in a table row */
 td:nth-of-type(4)
 {
   text-align: left;
-}
-
-/* Select the last ID number */
-table :last-child > :last-child > th
-{
-  color:red;
 }
 
 /*
