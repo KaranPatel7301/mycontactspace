@@ -1,7 +1,6 @@
 <?php
 
 	$inData = getRequestInfo();
-	
 	$searchResults = "";
 	$searchCount = 0;
 
@@ -12,9 +11,10 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select FirstName, LastName, PhoneNumber, EmailAddress from Contacts where FirstName like ?");
-		$FirstName = "%" . $inData["FirstName"] . "%";
-		$stmt->bind_param("s", $FirstName);
+		$stmt = $conn->prepare("select FirstName, LastName, PhoneNumber, EmailAddress, Notes, userId from Contacts where (FirstName like ? or LastName like ?) and userId=?");
+		$Search = "%" . $inData["Search"] . "%";
+		$userId = $inData["userId"];
+		$stmt->bind_param("sss", $Search, $Search, $userId);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
@@ -30,6 +30,8 @@
             $searchResults .= '"' . $row["LastName"] . '"';
             $searchResults .= '"' . $row["PhoneNumber"] . '"';
             $searchResults .= '"' . $row["EmailAddress"] . '"';
+			$searchResults .= '"' . $row["Notes"] . '"';
+			$searchResults .= '"' . $row["userId"] . '"';
 		}
 		
 		if( $searchCount == 0 )
