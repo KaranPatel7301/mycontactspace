@@ -45,6 +45,57 @@ body
   color: red;
 }
 
+.nowrap
+{
+  white-space: nowrap;
+}
+
+#user-name-display
+{
+  text-align: left;
+  margin: 7px;
+  margin-right: 15px;
+}
+
+.search-bar-container 
+{
+  border-radius: 0.25rem;
+  border: none;
+  height: auto;
+  margin-bottom: 1rem;
+	vertical-align:t op;
+}
+
+.search-box input[type=text] 
+{    
+  border-radius: 0.25rem;
+  border: none;
+  height: 2.375rem;
+  vertical-align: top;
+  padding-left: 5px;
+}
+
+/*
+ * Table structure
+ */
+
+#contactsTable
+{
+  display: block; 
+  max-height: 500px; 
+  overflow: auto; 
+}
+
+#table-header
+{
+  background: white;
+}
+
+.header-row
+{
+  box-shadow: inset 0 -2px 0 #808080;
+}
+
 table 
 {
   text-shadow: none;
@@ -63,10 +114,14 @@ td
   padding-right: 10px;
 }
 
-#fullName
+.emailRow
 {
-  display: flex;
-  flex-direction: row;
+  text-align: center;
+}
+
+.notesRow
+{
+  text-align: left;
 }
 
 #notes-row
@@ -80,11 +135,72 @@ td
   justify-content: space-evenly;
 }
 
+.save
+{
+  margin-top: 3.1px;
+  margin-bottom: 3.1px;
+}
+
+.nameInput
+{
+  width: 110px;
+}
+
+.phoneNumberInput
+{
+  width: 130px;
+}
+
+.emailInput
+{
+  width: 130px;
+}
+
+.inputLeft
+{
+  margin: 0px; /* remove all margins to fit two divs in the container */
+  display: inline-block;
+}
+
+.inputRight
+{
+  margin: 0px; /* remove all margins to fit two divs in the container */
+  display: inline-block;
+}
+
+/* Column widths are based on these cells */
+
+#row-name 
+{
+  min-width: 262px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+#row-phoneNumber 
+{
+  width: 20%;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+#row-email 
+{
+  width: 20%;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+#row-notes
+{
+  width: 40%;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
 /* Select the fourth element in a table row */
+/*
 td:nth-of-type(4)
 {
   text-align: left;
 }
+*/
 
 /*
  * Header
@@ -132,6 +248,12 @@ td:nth-of-type(4)
   justify-content: center;
 }
 
+.feature-image
+{
+  object-fit: cover;
+  height: 310px;
+}
+
 .row 
 {
   flex-wrap: nowrap;
@@ -139,7 +261,7 @@ td:nth-of-type(4)
 
 .card
 {
-  width: 300px;
+  width: 350px;
 }
 
 a:link { text-decoration: none; }

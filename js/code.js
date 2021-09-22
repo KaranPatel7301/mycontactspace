@@ -74,8 +74,6 @@ function doRegister()
         var password = document.getElementById("signupPassword").value;
         // var hash = md5( password );
 
-        //document.getElementById("loginResult").innerHTML = "";
-
         var tmp = {
                 FirstName: firstName,
                 LastName: lastName,
@@ -83,7 +81,6 @@ function doRegister()
                 Password: password
         };
 
-		// var tmp = {login:login,password:hash};
         var jsonPayload = JSON.stringify( tmp );
 
         var url = urlBase + '/AddUser.' + extension;
@@ -151,6 +148,7 @@ function readCookie()
 		else if( tokens[0] == "userId" )
 		{
 			userId = parseInt( tokens[1].trim() );
+			return tokens[1];
 		}
 	}
 	
@@ -180,12 +178,7 @@ function addContact()
 	var newPhoneNumber = document.getElementById("contactsPhoneNumber").value;
 	var newEmail = document.getElementById("contactsEmail").value;
 	var newNotes = document.getElementById("contactsNotes").value;
-	//var newColor = document.getElementById("colorText").value;
-	//document.getElementById("colorAddResult").innerHTML = "";
 
-	//var tmp = { 
-	//	color: newColor, userId, userId
-	//};
 	var tmp = {
 		FirstName: newFirstName,
 		LastName: newLastName,
@@ -207,102 +200,50 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				//document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		//document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 	
 	setTimeout(location.reload.bind(location), 300);
 }
 
-/*  COMMENT OUT ALL CODE THAT IS CURRENTLY NOT BEING USED TO AVOID WEBPAGE NOT WORKING
-function searchColor()
+function searchContacts()
 {
+
+	var c = document.getElementsByTagName("tbody");
+	var i;
+	for (i = 0; i < c.length; i++) 
+	{
+		c[i].style.display="none";
+		//c[i].style.backgroundColor = "blue";
+	}
+	//c[0].style.backgroundColor = "blue";
+
+	//document.getElementById("tableBody").remove();
 	var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+
+	//list(,,$val) = explode(",",$_COOKIE['firstName']);
+	//$res = preg_replace("/[^0-9]/", "", $val);
+	//document.getElementById("colorSearchResult").innerHTML = "";
 	
-	var colorList = "";
-
-	var tmp = {search:srch,userId:userId};
-	var jsonPayload = JSON.stringify( tmp );
-
-	var url = urlBase + '/SearchColors.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
-				
-				for( var i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-	
-}
-*/
-
-/* Add contacts functionality */
-
-let btnAdd = document.getElementById("addButton");
-let table = document.getElementById("tableBody");
-
-let firstNameInput = document.getElementById("firstName");
-let lastNameInput = document.getElementById("lastName");
-let phoneNumberInput = document.getElementById("contactsPhoneNumber");
-let emailInput = document.getElementById("contactsEmail");
-let notesInput = document.getElementById("contactsNotes");
-
-btnAdd.addEventListener('click', () => {
-	// Increment ID values
-	//let countID = document.querySelector('table :last-child > :last-child > th');
-	//let numberID = parseInt(countID.innerHTML) + 1;
-
-    let firstName = firstNameInput.value;
-    let lastName = lastNameInput.value;
-    let phoneNumber = phoneNumberInput.value;
-    let email = emailInput.value;
-    let notes = notesInput.value;
-
+	var tableBody = "";
 	var table = document.getElementById("contactsTable");
-	var tableLength = (table.rows.length) - 1;
-
+	var userId = readCookie();
 	var tmp = {
-		FirstName: firstName,
-		LastName: lastName,
-		PhoneNumber: phoneNumber,
-		Email: email,
-		Notes: notes
+		Search: srch,
+		userId: userId
 	};
 
+	//alert(userId);
 	var jsonPayload = JSON.stringify( tmp );
-
-	var url = urlBase + '/AddContact.' + extension;
+	//alert(jsonPayload);
+	var url = urlBase + '/SearchContacts.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -313,57 +254,48 @@ btnAdd.addEventListener('click', () => {
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				//document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				//alert(xhr.responseText)
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				//alert(jsonObject.results.length);
+				for(var i = 0; i < jsonObject.results.length; i++)
+				{
+					tableBody += jsonObject.results[i];
+					//alert(jsonObject.results[i].userId);
+					//alert("FOR LOOP IS WORKING");
+					//if(i < jsonObject.results.length - 1)
+					//{
+							// Make a new row in the table
+						let template = `
+						<tbody>
+						<tr id="row${jsonObject.results[i].ID}">
+							<td style="display:none;">${jsonObject.results[i].ID}></td>
+							<td id="fullName"><span class="nowrap" id="firstName-row${jsonObject.results[i].ID}">${jsonObject.results[i].FirstName}</span>&nbsp;<span class="nowrap" id="lastName-row${jsonObject.results[i].ID}">${jsonObject.results[i].LastName}</span></td>
+							<td id="phoneNumber-row${jsonObject.results[i].ID}">${jsonObject.results[i].PhoneNumber}</td>
+							<td class="emailRow" id="email-row${jsonObject.results[i].ID}">${jsonObject.results[i].Email}</td>
+							<td class="notesRow" id="notes-row${jsonObject.results[i].ID}">${jsonObject.results[i].Notes}</td>
+							<td id="button-cell">
+								<button type="button" id="edit-button${jsonObject.results[i].ID}" value="Edit" class="btn btn-light edit" onclick="edit_row('${jsonObject.results[i].ID}')">Edit</button>
+								<button type="button" id="save-button${jsonObject.results[i].ID}" value="Save" class="btn btn-light save" onclick="save_row('${jsonObject.results[i].ID}')" style="display:none;">Save</button>
+								<button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('${jsonObject.results[i].ID}')">Delete</button>
+							</td>
+						</tr>
+						</tbody>`;
+
+						table.innerHTML += template;
+					//}
+				}
+				
+				//document.getElementsByTagName("p")[0].innerHTML = tableBody;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		//document.getElementById("colorAddResult").innerHTML = err.message;
+		//document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
-/*
-	// Make a new row in the table
-    let template = `
-				<?php
-					while($rows=$result->fetch_assoc())
-					{
-				?>
-				<tr id="row${tableLength}">
-					<td><?php echo $rows['FirstName'];?></td>
-					<td><?php echo $rows['PhoneNumber'];?></td>
-					<td><?php echo $rows['EmailAddress'];?></td>
-					<td><?php echo $rows['Notes'];?></td>
-				</tr>
-				<?php
-					}
-				?>`;
-
-    table.innerHTML += template;
-*/
-	clearInput();
-});
-/*
-<tr id="row${tableLength}">
-                    <th scope="row">${tableLength}</th>
-                    <td id="name-row${tableLength}">${firstName} ${lastName}</td>
-                    <td id="phoneNumber-row${tableLength}">${phoneNumber}</td>
-                    <td id="email-row${tableLength}">${email}</td>
-                    <td id="notes-row${tableLength}">${notes}</td>
-                    <td id="button-cell">
-                      <button type="button" id="edit-button${tableLength}" value="Edit" class="btn btn-light edit" onclick="edit_row('${tableLength}')">Edit</button>
-                      <button type="button" id="save-button${tableLength}" value="Save" class="btn btn-light save" onclick="save_row('${tableLength}')" style="display:none;">Save</button>
-                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('${tableLength}')">Delete</button>
-                    </td>
-                </tr>
-*/
-function clearInput()
-{
-	document.getElementById("firstName").value = '';
-	document.getElementById("lastName").value = '';
-	document.getElementById("contactsPhoneNumber").value = '';
-	document.getElementById("contactsEmail").value = '';
-	document.getElementById("contactsNotes").value = '';
+	
 }
 
 /* Edit, save, and delete contacts */
@@ -385,21 +317,15 @@ function edit_row(no)
  var email_data = email.innerHTML;
  var notes_data = notes.innerHTML;
  
- firstName.innerHTML="<input type='text' id='firstName-text"+no+"' value='"+firstName_data+"'> ";
- lastName.innerHTML="<input type='text' id='lastName-text"+no+"' value='"+lastName_data+"'>";
- phoneNumber.innerHTML="<input type='text' id='phoneNumber-text"+no+"' value='"+phoneNumber_data+"'>";
- email.innerHTML="<input type='text' id='email-text"+no+"' value='"+email_data+"'>";
+ firstName.innerHTML="<input type='text' class='nameInput inputLeft' id='firstName-text"+no+"' value='"+firstName_data+"' maxlength = '25'>";
+ lastName.innerHTML="<input type='text' class='nameInput inputRight' id='lastName-text"+no+"' value='"+lastName_data+"' maxlength = '25'>";
+ phoneNumber.innerHTML="<input type='text' class='phoneNumberInput' id='phoneNumber-text"+no+"' value='"+phoneNumber_data+"'>";
+ email.innerHTML="<input type='text' class='emailInput' id='email-text"+no+"' value='"+email_data+"'>";
  notes.innerHTML="<input type='text' id='notes-text"+no+"' value='"+notes_data+"' maxlength = '100'>";
 }
 
 function save_row(no)
 {
-	/*
-	var name_val=document.getElementById("name-text"+no).value;
-	var phoneNumber_val=document.getElementById("phoneNumber-text"+no).value;
-	var email_val=document.getElementById("email-text"+no).value;
-	var notes_val=document.getElementById("notes-text"+no).value;
-	*/
 	var contactID = no;
 	var newFirstName = document.getElementById("firstName-text"+no).value;
 	var newLastName = document.getElementById("lastName-text"+no).value;
@@ -429,22 +355,22 @@ function save_row(no)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				//document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				//document.getElementById("contactSaveResult").innerHTML = "Color has been saved";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		//document.getElementById("colorAddResult").innerHTML = err.message;
+		//document.getElementById("contactSaveResult").innerHTML = err.message;
 	}
 
-/*
- document.getElementById("name-row"+no).innerHTML=newFirstName;
+ document.getElementById("firstName-row"+no).innerHTML=newFirstName;
+ document.getElementById("lastName-row"+no).innerHTML=newLastName;
  document.getElementById("phoneNumber-row"+no).innerHTML=newPhoneNumber;
- document.getElementById("email-row"+no).innerHTML=email_val;
- document.getElementById("notes-row"+no).innerHTML=notes_val;
-*/
+ document.getElementById("email-row"+no).innerHTML=newEmail;
+ document.getElementById("notes-row"+no).innerHTML=newNotes;
+
  document.getElementById("edit-button"+no).style.display="block";
  document.getElementById("save-button"+no).style.display="none";
 }
@@ -470,14 +396,14 @@ function delete_row(no)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				//document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				//document.getElementById("contactDeleteResult").innerHTML = "Color has been deleted";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		//document.getElementById("colorAddResult").innerHTML = err.message;
+		//document.getElementById("contactDeleteResult").innerHTML = err.message;
 	}
 	
  	document.getElementById("row"+no+"").outerHTML="";

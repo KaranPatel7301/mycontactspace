@@ -1,7 +1,7 @@
 <?php
 
-list(,,$val) = explode(",",$_COOKIE['firstName']);
-$res = preg_replace("/[^0-9]/", "", $val);
+	list(,,$val) = explode(",",$_COOKIE['firstName']);
+	$res = preg_replace("/[^0-9]/", "", $val);
 	$inData = getRequestInfo();
 	
 	$FirstName = $inData["FirstName"];

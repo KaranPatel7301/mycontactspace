@@ -2,7 +2,7 @@
   list(,,$val) = explode(",",$_COOKIE['firstName']);
     $mysqli = new mysqli("localhost", "Admin", "Administrator", "project");
 
-    if ($mysqli->connect_error) 
+  if ($mysqli->connect_error) 
 	{
 		returnWithError( $mysqli->connect_error );
 	} 
@@ -11,6 +11,9 @@
 		$sql = "SELECT * FROM Contacts WHERE $val";
         $result = $mysqli->query($sql);
         $mysqli->close();
+    //$sql = "SELECT * FROM Users WHERE $val";
+    //  $resultUsers = $mysqli->query($sql);
+    //  $mysqli->close();
 	}
 ?>
 
@@ -32,18 +35,17 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content rounded-5 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
-              <!-- <h5 class="modal-title">Modal title</h5> -->
               <h2 class="fw-bold mb-0">Add contact information</h2>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-5 pt-0">
               <form class="">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control rounded-4" id="firstName" placeholder="First name" onkeypress="return /[a-z]/i.test(event.key)">
+                  <input type="text" class="form-control rounded-4" id="firstName" placeholder="First name" maxlength = "25" onkeypress="return !/[^a-zA-Z ]/g.test(event.key)">
                   <label for="firstName">First name</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control rounded-4" id="lastName" placeholder="Last Name" onkeypress="return /[a-z]/i.test(event.key)">
+                  <input type="text" class="form-control rounded-4" id="lastName" placeholder="Last Name" maxlength = "25" onkeypress="return !/[^a-zA-Z ]/g.test(event.key)">
                   <label for="lastName">Last Name</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -70,105 +72,66 @@
           <header class="mb-auto">
             <div>
               <h3 id="title" class="float-md-start mb-0">MyContactSpace</h3>
-              <button class="btn btn-secondary fw-bold border-white bg-white float-md-end" onclick="doLogout()">Sign Out</a>
-              <!--
-              <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Contact</a>
-              </nav>
-              -->
+              <button class="btn btn-secondary fw-bold border-white bg-white float-md-end" onclick="doLogout()">Sign Out</button>
+              <?php
+              //          while($rows=$resultUsers->fetch_assoc())
+              //          {
+              ?>
+              <h5 id="user-name-display" class="float-md-end">Jonathan Field<?php// echo $rows['FirstName'];?> <?php// echo $rows['lastName'];?></h5>
+              <?php
+              //          }
+              ?>
             </div>
           </header>
 
           <main class="px-3">
+            <div class="search-bar-container">
+              <div class="search-box">
+                <input type="text" placeholder="Search contacts..." id="searchText" class="shadow">
+                <button type="search-button" id="search-button" value="search" class="shadow btn btn-light search" onclick="searchContacts()">Search</button>
+              </div>
+            </div>
+
             <div id="table-wrapper">
-              <table id="contactsTable" class="table table-hover table-bordered bg-light">
+              <table id="contactsTable" class="shadow table table-hover table-bordered bg-light">
                 <thead>
-                  <tr>
-                    <th scope="col">ID #</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Notes</th>
+                  <tr id="table-header" style="position: sticky; top: 0;">
+                    <th scope="col" id="row-ID" style="display:none;">ID #</th>
+                    <th scope="col" id="row-name">Name</th>
+                    <th scope="col" id="row-phoneNumber">Phone Number</th>
+                    <th scope="col" id="row-email">Email</th>
+                    <th scope="col" id="row-notes">Notes</th>
+                    <th scope="col" id="row-notes"></th>
                   </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <!--
-                  <tr id="row1" style="display: none;">
-                    <th scope="row">1</th>
-                    <td id="name-row1"></td>
-                    <td id="phoneNumber-row1"></td>
-                    <td id="email-row1"></td>
-                    <td id="notes-row1"></td>
-                    <td id="button-cell">
-                      <button type="button" id="edit-button1" value="Edit" class="btn btn-light edit" onclick="edit_row('1')">Edit</button>
-                      <button type="button" id="save-button1" value="Save" class="btn btn-light save" onclick="save_row('1')" style="display:none;">Save</button>
-                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('1')">Delete</button>
-                    </td>
-                  </tr>
-                    -->
+                <tbody>
+                <div id="tableBody"> 
                   <?php
                         while($rows=$result->fetch_assoc())
                         {
-                    ?>
-                    <tr id="row<?php echo $rows['ID'];?>">
-                        <td><?php echo $rows['ID'];?></td>
-                        <td id="fullName"><span id="firstName-row<?php echo $rows['ID'];?>"><?php echo $rows['FirstName'];?></span>&nbsp;<span id=lastName-row<?php echo $rows['ID'];?>><?php echo $rows['LastName'];?></span></td>
-                        <td id="phoneNumber-row<?php echo $rows['ID'];?>"><?php echo $rows['PhoneNumber'];?></td>
-                        <td id="email-row<?php echo $rows['ID'];?>"><?php echo $rows['EmailAddress'];?></td>
-                        <td id="notes-row<?php echo $rows['ID'];?>"><?php echo $rows['Notes'];?></td>
-                        <td id="button-cell">
-                            <button type="button" id="edit-button<?php echo $rows['ID'];?>" value="Edit" class="btn btn-light edit" onclick="edit_row('<?php echo $rows['ID'];?>')">Edit</button>
-                            <button type="button" id="save-button<?php echo $rows['ID'];?>" value="Save" class="btn btn-light save" onclick="save_row('<?php echo $rows['ID'];?>')" style="display:none;">Save</button>
-                            <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('<?php echo $rows['ID'];?>')">Delete</button>
-                        </td>
-                    </tr>
-                    <?php
+                  ?>
+                   
+                      <tr id="row<?php echo $rows['ID'];?>">
+                          <td style="display:none;"><?php echo $rows['ID'];?></td>
+                          <td id="fullName"><span class="nowrap" id="firstName-row<?php echo $rows['ID'];?>"><?php echo $rows['FirstName'];?></span>&nbsp;<span class="nowrap" id=lastName-row<?php echo $rows['ID'];?>><?php echo $rows['LastName'];?></span></td>
+                          <td id="phoneNumber-row<?php echo $rows['ID'];?>"><?php echo $rows['PhoneNumber'];?></td>
+                          <td class="emailRow" id="email-row<?php echo $rows['ID'];?>"><?php echo $rows['EmailAddress'];?></td>
+                          <td class="notesRow" id="notes-row<?php echo $rows['ID'];?>"><?php echo $rows['Notes'];?></td>
+                          <td id="button-cell">
+                              <button type="button" id="edit-button<?php echo $rows['ID'];?>" value="Edit" class="btn btn-light edit" onclick="edit_row('<?php echo $rows['ID'];?>')">Edit</button>
+                              <button type="button" id="save-button<?php echo $rows['ID'];?>" value="Save" class="btn btn-light save" onclick="save_row('<?php echo $rows['ID'];?>')" style="display:none;">Save</button>
+                              <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('<?php echo $rows['ID'];?>')">Delete</button>
+                          </td>
+                      </tr>
+                    
+                  <?php
                         }
-                    ?>
-                  <!--
-                  <tr id="row1">
-                    <th scope="row">1</th>
-                    <td id="name-row1">Mark Otto</td>
-                    <td id="phoneNumber-row1">954-102-2039</td>
-                    <td id="email-row1">ottomark@mdo.com</td>
-                    <td id="notes-row1">Brother's friend that is very helpful with all things Apple.</td>
-                    <td id="button-cell">
-                      <button type="button" id="edit-button1" value="Edit" class="btn btn-light edit" onclick="edit_row('1')">Edit</button>
-                      <button type="button" id="save-button1" value="Save" class="btn btn-light save" onclick="save_row('1')" style="display:none;">Save</button>
-                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('1')">Delete</button>
-                    </td>
-                  </tr>
-                  <tr id="row2">
-                    <th scope="row">2</th>
-                    <td id="name-row2">Jacob Thornton</td>
-                    <td id="phoneNumber-row2">653-204-5829</td>
-                    <td id="email-row2">thornfart@fat.com</td>
-                    <td id="notes-row2">Cousin is a very long name and is pretty good to know.</td>
-                    <td id="button-cell">
-                      <button type="button" id="edit-button2" value="Edit" class="btn btn-light edit" onclick="edit_row('2')">Edit</button>
-                      <button type="button" id="save-button2" value="Save" class="btn btn-light save" onclick="save_row('2')" style="display:none;">Save</button>
-                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('2')">Delete</button>
-                    </td>
-                  </tr>
-                  <tr id="row3">
-                    <th scope="row">3</th>
-                    <td id="name-row3">Henry Frank</td>
-                    <td id="phoneNumber-row3">209-694-6843</td>
-                    <td id="email-row3">hfrank@yahoo.com</td>
-                    <td id="notes-row3">Uncle</td>
-                    <td id="button-cell">
-                      <button type="button" id="edit-button3" value="Edit" class="btn btn-light edit" onclick="edit_row('3')">Edit</button>
-                      <button type="button" id="save-button3" value="Save" class="btn btn-light save" onclick="save_row('3')" style="display:none;">Save</button>
-                      <button type="button" value="Delete" class="btn btn-danger delete" onclick="delete_row('3')">Delete</button>
-                    </td>
-                  </tr>
-                  -->
+                  ?>
+                  </div>
                 </tbody>
               </table>
             </div>
-            <button type="button" class="btn btn-light float-start launch-modal" data-bs-toggle="modal" data-bs-target="#addContact">Add contact</button>
+            <button type="button" class="shadow btn btn-light float-start launch-modal" data-bs-toggle="modal" data-bs-target="#addContact">Add contact</button>
           </main>
           <footer class="mt-auto text-white-50"></footer>
       </div>
